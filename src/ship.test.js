@@ -1,4 +1,4 @@
-import Ship from "./index";
+import Ship from "./ship";
 
 test("Your ‘ships’ will be objects that include their length, the number of times they’ve been hit and whether or not they’ve been sunk.", () => {
   const testShip = new Ship(2);
