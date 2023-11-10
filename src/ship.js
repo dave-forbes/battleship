@@ -13,11 +13,3 @@ export default class Ship {
     return (this.sunk = this.hits === this.length);
   }
 }
-
-// const testShip = new Ship(1);
-
-// testShip.hit();
-
-// testShip.isSunk();
-
-// console.log(testShip);
