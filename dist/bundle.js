@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("const body = document.querySelector(\"body\");\n\nbody.style.backgroundColor = \"black\";\n\n\n//# sourceURL=webpack://battleship/./src/index.js?");
+eval("const body = document.querySelector(\"body\");\n\nbody.classList.add(\"resize\");\n\n\n//# sourceURL=webpack://battleship/./src/index.js?");
 
 /***/ })
 
