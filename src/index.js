@@ -6,6 +6,15 @@ function Ship(length, hits, sunk) {
     hit() {
       this.hits++;
     },
+    isSunk() {
+      if (this.length === this.hits) {
+        this.sunk = true;
+        return true;
+      } else {
+        this.sunk = false;
+        return false;
+      }
+    },
   };
 }
 
