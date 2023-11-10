@@ -3,6 +3,8 @@ import Ship from "./ship";
 test("Your ‘ships’ will be objects that include their length, the number of times they’ve been hit and whether or not they’ve been sunk.", () => {
   const testShip = new Ship(2);
   expect(Object.hasOwn(testShip, "length")).toBe(true);
+  expect(Object.hasOwn(testShip, "hits")).toBe(true);
+  expect(Object.hasOwn(testShip, "sunk")).toBe(true);
 });
 
 test("Ships should have a hit() function that increases the number of ‘hits’ in your ship.", () => {
