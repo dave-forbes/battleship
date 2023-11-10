@@ -1,29 +1,23 @@
-function Ship(length, hits, sunk) {
-  return {
-    length,
-    hits,
-    sunk,
-    hit() {
-      this.hits++;
-    },
-    isSunk() {
-      if (this.length === this.hits) {
-        this.sunk = true;
-        return true;
-      } else {
-        this.sunk = false;
-        return false;
-      }
-    },
-  };
+export default class Ship {
+  constructor(length) {
+    this.length = length;
+    this.hits = 0;
+    this.sunk = false;
+  }
+
+  hit() {
+    this.hits++;
+  }
+
+  isSunk() {
+    return (this.sunk = this.hits === this.length);
+  }
 }
 
-export default Ship;
+// const testShip = new Ship(1);
 
-// const exampleShip = Ship(2, 3, false);
+// testShip.hit();
 
-// console.log(exampleShip);
+// testShip.isSunk();
 
-// exampleShip.hit();
-
-// console.log(exampleShip);
+// console.log(testShip);
