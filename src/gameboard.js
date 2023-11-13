@@ -3,6 +3,7 @@ import Ship from "./ship";
 export default class Gameboard {
   constructor() {
     this.board = this.generateBoard();
+    this.missedShots = new Set();
   }
 
   generateBoard() {
@@ -46,5 +47,15 @@ export default class Gameboard {
     return true;
   }
 
-  recieveAttack([x, y]) {}
+  recieveAttack([x, y]) {
+    const index = this.boardIndex([x, y]);
+    const cell = this.board[index];
+    if (cell[2]) {
+      cell[2].hit();
+    } else {
+      this.missedShots.add(JSON.stringify([x, y]));
+    }
+  }
+
+  allShipsSunk() {}
 }

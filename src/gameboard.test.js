@@ -30,7 +30,10 @@ test.only("Gameboards should have a receiveAttack function that takes a pair of 
   const gameboard = new Gameboard();
   gameboard.placeShip([0, 1], [1, 1]);
   gameboard.recieveAttack([0, 1]);
-  expect(gameboard.board[gameboard.boardIndex([0, 1])][2].hits).toBe(1);
+  gameboard.recieveAttack([1, 1]);
+  expect(gameboard.board[gameboard.boardIndex([0, 1])][2].hits).toBe(2);
+  expect(gameboard.board[gameboard.boardIndex([1, 1])][2].hits).toBe(2);
+  expect(gameboard.board[gameboard.boardIndex([1, 1])][2].isSunk()).toBe(true);
   gameboard.recieveAttack([0, 2]);
   expect(gameboard.missedShots.has(JSON.stringify([0, 2]))).toBe(true);
 });
