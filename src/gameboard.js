@@ -23,28 +23,36 @@ export default class Gameboard {
   }
 
   placeShip(...coOrds) {
-    const ship = new Ship(coOrds.length);
-    this.ships.push(ship);
     const coordinates = [...coOrds];
 
-    for (const coordinate of coordinates) {
-      for (const cell of this.board) {
-        if (
-          coordinate[0] === cell[0] &&
-          coordinate[1] === cell[1] &&
-          cell.length === 3
-        ) {
-          return false;
-          // One of the cells is already occupied so do not add ship
-        }
+    const isCellOccupiedOrNearby = (x, y) => {
+      return this.board.some((cell) => {
+        const cellX = cell[0];
+        const cellY = cell[1];
+        return (
+          (x === cellX && y === cellY && cell.length === 3) ||
+          (Math.abs(x - cellX) === 1 && y === cellY && cell.length === 3) ||
+          (Math.abs(x - cellX) === 1 &&
+            Math.abs(y - cellY) === 1 &&
+            cell.length === 3) ||
+          (x === cellX && Math.abs(y - cellY) === 1 && cell.length === 3)
+        );
+      });
+    };
+
+    for (const [x, y] of coordinates) {
+      if (isCellOccupiedOrNearby(x, y)) {
+        return false;
+        // Either ne of the cells is already occupied or one is nearby so do not add ship
       }
     }
-    for (const coordinate of coordinates) {
-      for (const cell of this.board) {
-        if (coordinate[0] === cell[0] && coordinate[1] === cell[1]) {
-          cell.push(ship);
-        }
-      }
+
+    const ship = new Ship(coordinates.length);
+    this.ships.push(ship);
+
+    for (const [x, y] of coordinates) {
+      const cell = this.board.find((cell) => cell[0] === x && cell[1] === y);
+      cell.push(ship);
     }
     return true;
   }
