@@ -5,6 +5,7 @@ export default class Gameboard {
     this.board = this.generateBoard();
     this.missedShots = new Set();
     this.allAttacks = new Set();
+    this.ships = [];
   }
 
   generateBoard() {
@@ -23,6 +24,7 @@ export default class Gameboard {
 
   placeShip(...coOrds) {
     const ship = new Ship(coOrds.length);
+    this.ships.push(ship);
     const coordinates = [...coOrds];
 
     for (const coordinate of coordinates) {
@@ -60,5 +62,9 @@ export default class Gameboard {
       this.allAttacks.add(JSON.stringify([x, y]));
     }
   }
-  allShipsSunk() {}
+  allShipsSunk() {
+    return this.ships.every((ship) => {
+      return ship.isSunk();
+    });
+  }
 }

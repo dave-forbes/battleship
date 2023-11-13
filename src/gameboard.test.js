@@ -38,7 +38,7 @@ test("Gameboards should have a receiveAttack function that takes a pair of coord
   expect(gameboard.missedShots.has(JSON.stringify([0, 2]))).toBe(true);
 });
 
-test.only("Can't attack same coordinates twice", () => {
+test("Can't attack same coordinates twice", () => {
   const gameboard = new Gameboard();
   gameboard.placeShip([0, 1], [1, 1]);
   gameboard.recieveAttack([0, 1]);
@@ -56,7 +56,7 @@ test("Gameboards should keep track of missed attacks so they can display them pr
   expect(gameboard.missedShots.has(JSON.stringify([3, 1]))).toBe(true);
 });
 
-test("Gameboards should be able to report whether or not all of their ships have been sunk.", () => {
+test.only("Gameboards should be able to report whether or not all of their ships have been sunk.", () => {
   const gameboard = new Gameboard();
   gameboard.placeShip([0, 1], [1, 1]);
   gameboard.placeShip([4, 4], [4, 5], [4, 6], [4, 7], [4, 8]);
@@ -66,9 +66,10 @@ test("Gameboards should be able to report whether or not all of their ships have
   gameboard.recieveAttack([4, 4]);
   gameboard.recieveAttack([4, 5]);
   gameboard.recieveAttack([4, 6]);
+  expect(gameboard.allShipsSunk()).toBe(false);
   gameboard.recieveAttack([4, 7]);
   gameboard.recieveAttack([4, 8]);
-  expect(gameboard.missedShots.has(JSON.stringify([3, 1]))).toBe(true);
+  expect(gameboard.allShipsSunk()).toBe(true);
 });
 
 // test("", () => {});
