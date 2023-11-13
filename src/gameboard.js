@@ -4,6 +4,7 @@ export default class Gameboard {
   constructor() {
     this.board = this.generateBoard();
     this.missedShots = new Set();
+    this.allAttacks = new Set();
   }
 
   generateBoard() {
@@ -48,14 +49,16 @@ export default class Gameboard {
   }
 
   recieveAttack([x, y]) {
+    if (this.allAttacks.has(JSON.stringify([x, y]))) return false;
     const index = this.boardIndex([x, y]);
     const cell = this.board[index];
     if (cell[2]) {
       cell[2].hit();
+      this.allAttacks.add(JSON.stringify([x, y]));
     } else {
       this.missedShots.add(JSON.stringify([x, y]));
+      this.allAttacks.add(JSON.stringify([x, y]));
     }
   }
-
   allShipsSunk() {}
 }
