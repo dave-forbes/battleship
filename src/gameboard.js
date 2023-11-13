@@ -10,8 +10,8 @@ export default class Gameboard {
 
   generateBoard() {
     let board = [];
-    for (let i = 1; i <= 10; i++) {
-      for (let j = 1; j <= 10; j++) {
+    for (let i = 0; i <= 9; i++) {
+      for (let j = 0; j <= 9; j++) {
         board.push([i, j]);
       }
     }
@@ -19,7 +19,7 @@ export default class Gameboard {
   }
 
   boardIndex([x, y]) {
-    return x * 11 + y;
+    return x * 10 + y;
   }
 
   placeShip(...coOrds) {

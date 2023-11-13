@@ -19,8 +19,8 @@ export default class Player {
       }
       // Human Player attack
     } else {
-      const x = Math.floor(Math.random() * 11);
-      const y = Math.floor(Math.random() * 11);
+      const x = Math.floor(Math.random() * 10) + 1;
+      const y = Math.floor(Math.random() * 10) + 1;
       const coOrds = [x, y];
       if (opposingPlayer.gameboard.recieveAttack(coOrds)) {
         opposingPlayer.gameboard.recieveAttack(coOrds);

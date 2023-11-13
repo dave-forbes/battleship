@@ -20,8 +20,8 @@ test("Player creates an object that contains its own gameboard.", () => {
 test("Players can attack the enemy Gameboard.", () => {
   const humanPlayer = new Player();
   const computerPlayer = new Player("computer");
-  humanPlayer.attack(computerPlayer, [0, 1]);
-  expect(computerPlayer.gameboard.allAttacks.has(JSON.stringify([0, 1]))).toBe(
+  humanPlayer.attack(computerPlayer, [1, 1]);
+  expect(computerPlayer.gameboard.allAttacks.has(JSON.stringify([1, 1]))).toBe(
     true
   );
   const computerAttack = computerPlayer.attack(humanPlayer);
@@ -44,9 +44,9 @@ test("Players turn changes after attacking", () => {
 test("Players can't shoot the same coordinate twice", () => {
   const humanPlayer = new Player();
   const computerPlayer = new Player("computer");
-  humanPlayer.attack(computerPlayer, [0, 1]);
+  humanPlayer.attack(computerPlayer, [1, 1]);
   computerPlayer.attack(humanPlayer);
-  const humanPlayerSecondTurn = humanPlayer.attack(computerPlayer, [0, 1]);
+  const humanPlayerSecondTurn = humanPlayer.attack(computerPlayer, [1, 1]);
   expect(humanPlayerSecondTurn).toBeFalsy();
   expect(humanPlayer.turn).toBeTruthy();
 });
