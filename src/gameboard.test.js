@@ -18,11 +18,12 @@ test("Gameboards should be able to place ships at specific coordinates by callin
   console.log(gameboard.board[gameboard.boardIndex([1, 1])]);
 });
 
-test("Can't place a ship over co-ordinates that are already occupied", () => {
+test.only("Can't place a ship over co-ordinates that are already occupied", () => {
   const gameboard = new Gameboard();
   gameboard.placeShip([0, 1], [1, 1]);
   expect(gameboard.placeShip([0, 1], [1, 1])).toBe(false);
   expect(gameboard.placeShip([1, 1], [1, 2], [2, 3])).toBe(false);
+  expect(gameboard.board[gameboard.boardIndex([1, 2])][2]).toBe(undefined);
   expect(gameboard.placeShip([3, 1], [3, 2], [3, 3])).toBe(true);
 });
 
@@ -56,7 +57,7 @@ test("Gameboards should keep track of missed attacks so they can display them pr
   expect(gameboard.missedShots.has(JSON.stringify([3, 1]))).toBe(true);
 });
 
-test.only("Gameboards should be able to report whether or not all of their ships have been sunk.", () => {
+test("Gameboards should be able to report whether or not all of their ships have been sunk.", () => {
   const gameboard = new Gameboard();
   gameboard.placeShip([0, 1], [1, 1]);
   gameboard.placeShip([4, 4], [4, 5], [4, 6], [4, 7], [4, 8]);

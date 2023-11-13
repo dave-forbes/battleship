@@ -35,7 +35,7 @@ export default class Gameboard {
           cell.length === 3
         ) {
           return false;
-          // Already occupied
+          // One of the cells is already occupied so do not add ship
         }
       }
     }
@@ -43,7 +43,6 @@ export default class Gameboard {
       for (const cell of this.board) {
         if (coordinate[0] === cell[0] && coordinate[1] === cell[1]) {
           cell.push(ship);
-          // Not occupied so add ship
         }
       }
     }
