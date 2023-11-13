@@ -37,77 +37,41 @@ export default class Player {
   randomGenerateShips() {
     const isVertical = () => (Math.random() > 0.5 ? true : false);
 
-    const fourSqaureShip = () => {
+    const placeRandomShip = (size) => {
       if (isVertical()) {
-        const x = Math.floor(Math.random() * 10);
-        const y = Math.floor(Math.random() * 8);
-        this.gameboard.placeShip([x, y], [x, y + 1], [x, y + 2], [x, y + 3]);
-      } else {
-        const y = Math.floor(Math.random() * 10);
-        const x = Math.floor(Math.random() * 8);
-        this.gameboard.placeShip([x, y], [x + 1, y], [x + 2, y], [x + 3, y]);
-      }
-    };
-    const threeSqaureShip = () => {
-      if (isVertical()) {
-        let sucess = false;
-        while (sucess === false) {
+        let success = false;
+        while (!success) {
           const x = Math.floor(Math.random() * 10);
-          const y = Math.floor(Math.random() * 8);
-          sucess = this.gameboard.placeShip([x, y], [x, y + 1], [x, y + 2]);
+          const y = Math.floor(Math.random() * (10 - size + 1));
+          const coordinates = Array.from({ length: size }, (_, i) => [
+            x,
+            y + i,
+          ]);
+          success = this.gameboard.placeShip(...coordinates);
         }
       } else {
-        let sucess = false;
-        while (sucess === false) {
+        let success = false;
+        while (!success) {
           const y = Math.floor(Math.random() * 10);
-          const x = Math.floor(Math.random() * 8);
-          sucess = this.gameboard.placeShip([x, y], [x + 1, y], [x + 2, y]);
+          const x = Math.floor(Math.random() * (10 - size + 1));
+          const coordinates = Array.from({ length: size }, (_, i) => [
+            x + i,
+            y,
+          ]);
+          success = this.gameboard.placeShip(...coordinates);
         }
       }
     };
-    const twoSqaureShip = () => {
-      if (isVertical()) {
-        let sucess = false;
-        while (sucess === false) {
-          const x = Math.floor(Math.random() * 10);
-          const y = Math.floor(Math.random() * 8);
-          sucess = this.gameboard.placeShip([x, y], [x, y + 1]);
-        }
-      } else {
-        let sucess = false;
-        while (sucess === false) {
-          const y = Math.floor(Math.random() * 10);
-          const x = Math.floor(Math.random() * 8);
-          sucess = this.gameboard.placeShip([x, y], [x + 1, y]);
-        }
-      }
-    };
-    const oneSqaureShip = () => {
-      if (isVertical()) {
-        let sucess = false;
-        while (sucess === false) {
-          const x = Math.floor(Math.random() * 10);
-          const y = Math.floor(Math.random() * 8);
-          sucess = this.gameboard.placeShip([x, y]);
-        }
-      } else {
-        let sucess = false;
-        while (sucess === false) {
-          const y = Math.floor(Math.random() * 10);
-          const x = Math.floor(Math.random() * 8);
-          sucess = this.gameboard.placeShip([x, y]);
-        }
-      }
-    };
-    fourSqaureShip();
-    threeSqaureShip();
-    threeSqaureShip();
-    twoSqaureShip();
-    twoSqaureShip();
-    twoSqaureShip();
-    oneSqaureShip();
-    oneSqaureShip();
-    oneSqaureShip();
-    oneSqaureShip();
+
+    placeRandomShip(4);
+    placeRandomShip(3);
+    placeRandomShip(3);
+    placeRandomShip(2);
+    placeRandomShip(2);
+    placeRandomShip(2);
+    placeRandomShip(1);
+    placeRandomShip(1);
+    placeRandomShip(1);
+    placeRandomShip(1);
   }
 }
