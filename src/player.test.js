@@ -17,4 +17,15 @@ test("Player creates an object that contains its own gameboard.", () => {
   expect(humanPlayer.gameboard !== computerPlayer.gameboard).toBe(true);
 });
 
-test("Players can take turns playing the game by attacking the enemy Gameboard.", () => {});
+test("Players can take turns playing the game by attacking the enemy Gameboard.", () => {
+  const humanPlayer = new Player();
+  const computerPlayer = new Player("computer");
+  humanPlayer.attack(computerPlayer, [0, 1]);
+  expect(computerPlayer.gameboard.allAttacks.has(JSON.stringify([0, 1]))).toBe(
+    true
+  );
+  const computerAttack = computerPlayer.attack(humanPlayer);
+  expect(
+    humanPlayer.gameboard.allAttacks.has(JSON.stringify(computerAttack))
+  ).toBe(true);
+});
