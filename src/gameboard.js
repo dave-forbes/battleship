@@ -61,6 +61,7 @@ export default class Gameboard {
       this.missedShots.add(JSON.stringify([x, y]));
       this.allAttacks.add(JSON.stringify([x, y]));
     }
+    return true;
   }
   allShipsSunk() {
     return this.ships.every((ship) => {
