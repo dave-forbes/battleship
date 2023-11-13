@@ -1,10 +1,15 @@
-const path = require("path");
+import { resolve } from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-module.exports = {
-  entry: "./src/index.js",
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export default {
+  entry: "./src/ui.js",
   mode: "development",
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: resolve(__dirname, "dist"),
   },
 };
