@@ -9,14 +9,28 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
 }
 
 .board-container {
-  display: flex; 
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 200px;
+}
+
+.place-ships-container {
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
 }
 
 .board {
@@ -28,12 +42,12 @@ body {
   flex-shrink: 0;
 }
 
-#computer-player > div {
+#computer-player>div, .place-ships-container > div > div {
   cursor: pointer;
   transition: 0.2s;
 }
 
-#computer-player > div:hover {
+#computer-player>div:hover {
   background-color: aquamarine;
 }
 
@@ -51,4 +65,47 @@ body {
 
 .miss {
   background-color: blue;
+}
+
+.hide {
+  display: none;
+}
+
+/* Draggable ships */
+
+.place-ships-container {
+  display: grid;
+  align-content: space-evenly;
+  justify-content: center;
+  justify-items: center;
+}
+
+.four-cell-ships,
+.three-cell-ships,
+.two-cell-ships,
+.one-cell-ships {
+  display: flex;
+  gap: 20px;
+}
+
+.four, .three, .two,.one {
+  height: 50px;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.four {
+  width: 200px;
+}
+
+.three {
+  width: 150px;
+}
+
+.two {
+  width: 100px;
+}
+
+.one {
+  width: 50px;
 }
