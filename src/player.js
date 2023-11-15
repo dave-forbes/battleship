@@ -22,17 +22,23 @@ export default class Player {
       }
       // Human Player attack
     } else {
-      const x = Math.floor(Math.random() * 10);
-      const y = Math.floor(Math.random() * 10);
-      const coOrds = [x, y];
-      if (opposingPlayer.gameboard.recieveAttack(coOrds)) {
-        opposingPlayer.gameboard.recieveAttack(coOrds);
-        this.turn = false;
-        opposingPlayer.turn = true;
-        return coOrds;
-      } else {
-        return false;
+      let success = false;
+      let coOrds;
+      while (!success) {
+        const x = Math.floor(Math.random() * 10);
+        const y = Math.floor(Math.random() * 10);
+        coOrds = [x, y];
+        if (opposingPlayer.gameboard.allAttacks.has(JSON.stringify(coOrds))) {
+          success = false;
+        } else {
+          success = true;
+        }
       }
+      opposingPlayer.gameboard.recieveAttack(coOrds);
+      this.turn = false;
+      opposingPlayer.turn = true;
+      console.log(opposingPlayer.gameboard);
+      return coOrds;
       //Computer Player attack
     }
   }
