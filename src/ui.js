@@ -6,6 +6,7 @@ import {
   allMissesHuman,
   allAttacksComputer,
   allMissesComputer,
+  dragAndDropShip,
 } from "./gameLoop.js";
 
 console.log({ humanPlayerBoard, computerPlayerBoard });
@@ -66,3 +67,53 @@ const clickAttack = (e) => {
 };
 
 computerPlayerBoardUI.addEventListener("click", clickAttack);
+
+const startGame = document.querySelector("button");
+const placeShips = document.querySelector(".place-ships");
+const computerFleet = document.querySelector(".computer-fleet");
+
+startGame.addEventListener("click", () => {
+  computerFleet.classList.toggle("hide");
+  placeShips.classList.toggle("hide");
+});
+
+// drag and drop stuff
+
+const placeShipsContainer = document.querySelector(".place-ships-container");
+
+placeShipsContainer.addEventListener("dragstart", (e) => {
+  if (e.target.classList.contains("ship")) {
+    e.dataTransfer.setData("text", e.target.id);
+  }
+});
+
+humanPlayerBoardUI.addEventListener("dragover", (e) => {
+  e.preventDefault();
+});
+
+humanPlayerBoardUI.addEventListener("drop", (e) => {
+  e.preventDefault();
+  const id = e.dataTransfer.getData("text");
+  const originalTarget = document.getElementById(id);
+  const originalParent = originalTarget.parentElement;
+  originalParent.removeChild(originalTarget);
+  const size = originalTarget.dataset.size;
+  const vertical = originalTarget.classList.contains("vertical");
+  const x = Number(e.target.dataset.X);
+  const y = Number(e.target.dataset.Y);
+  const coOrds = [x, y];
+  dragAndDropShip(coOrds, size, vertical);
+  humanPlayerBoardUI.innerHTML = "";
+  generateDivsFromGameboard(humanPlayerBoard, humanPlayerBoardUI);
+});
+
+placeShipsContainer.addEventListener("click", (e) => {
+  const node = e.target;
+  if (node.classList.contains("ship")) {
+    const width = node.clientWidth;
+    const height = node.clientHeight;
+    node.style.width = `${height}px`;
+    node.style.height = `${width}px`;
+    node.classList.toggle("vertical");
+  }
+});
