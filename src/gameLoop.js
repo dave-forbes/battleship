@@ -3,7 +3,7 @@ import Player from "./player.js";
 const humanPlayer = new Player();
 const computerPlayer = new Player("computer");
 
-humanPlayer.randomGenerateShips();
+// humanPlayer.randomGenerateShips();
 computerPlayer.randomGenerateShips();
 
 const humanPlayerBoard = humanPlayer.gameboard.board;
@@ -14,13 +14,26 @@ const gameLoop = (coOrds) => {
   if (computerPlayer.gameboard.allShipsSunk()) return "Game over, player wins";
   computerPlayer.attack(humanPlayer);
   if (humanPlayer.gameboard.allShipsSunk()) return "Game over, computer wins!";
-  return "Players turn...";
 };
 
 const allAttacksHuman = computerPlayer.gameboard.allAttacks;
 const allMissesHuman = computerPlayer.gameboard.missedShots;
 const allAttacksComputer = humanPlayer.gameboard.allAttacks;
 const allMissesComputer = humanPlayer.gameboard.missedShots;
+
+const dragAndDropShip = (coOrds, size, vertical) => {
+  if (vertical) {
+    const [x, y] = coOrds;
+    const coordinates = Array.from({ length: size }, (_, i) => [x + i, y]);
+    console.log({ coOrds, coordinates });
+    humanPlayer.gameboard.placeShip(...coordinates);
+  } else {
+    const [x, y] = coOrds;
+    const coordinates = Array.from({ length: size }, (_, i) => [x, y + i]);
+    console.log({ coOrds, coordinates });
+    humanPlayer.gameboard.placeShip(...coordinates);
+  }
+};
 
 export {
   humanPlayerBoard,
@@ -30,4 +43,5 @@ export {
   allMissesHuman,
   allAttacksComputer,
   allMissesComputer,
+  dragAndDropShip,
 };
