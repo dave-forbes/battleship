@@ -9,8 +9,11 @@ export default class Player {
 
   attack(opposingPlayer, coOrds) {
     if (coOrds && !this.computer) {
-      if (opposingPlayer.gameboard.recieveAttack(coOrds)) {
-        opposingPlayer.gameboard.recieveAttack(coOrds);
+      if (!opposingPlayer.gameboard.allAttacks.has(JSON.stringify(coOrds))) {
+        const attack = opposingPlayer.gameboard.recieveAttack(coOrds);
+        console.log(opposingPlayer.gameboard);
+        if (attack === "Hit") return "Hit";
+        if (attack === "Miss") return "Miss";
         this.turn = false;
         opposingPlayer.turn = true;
         return true;
