@@ -11,11 +11,42 @@
 </head>
 
 <body>
+  <h1 class="title">BattleShip</h1>
   <div class="board-container">
-    <div id="human-player" class="board"></div>
-    <div id="computer-player" class="board"></div>
+    <div class="player-fleet">
+      <h1>Your fleet</h1>
+      <div id="human-player" class="board"></div>
+    </div>
+    <div class="computer-fleet hide">
+      <h1>Computer fleet</h1>
+      <div id="computer-player" class="board"></div>
+    </div>
+    <div class="place-ships">
+      <h1>Place your ships</h1>
+      <div class="place-ships-container">
+        <div class="four-cell-ships">
+          <div class="four cell ship" id="four-cell-ship" data-size="4" draggable="true"></div>
+        </div>
+        <div class="three-cell-ships">
+          <div class="three cell ship" data-size="3" id="three-cell-ship-1" draggable="true"></div>
+          <div class="three cell ship" data-size="3" id="three-cell-ship-2" draggable="true"></div>
+        </div>
+        <div class="two-cell-ships">
+          <div class="two cell ship" data-size="2" id="two-cell-ship-1" draggable="true"></div>
+          <div class="two cell ship" data-size="2" id="two-cell-ship-2" draggable="true"></div>
+          <div class="two cell ship" data-size="2" id="two-cell-ship-3" draggable="true"></div>
+        </div>
+        <div class="one-cell-ships">
+          <div class="one cell ship" data-size="1" id="one-cell-ship-1" draggable="true"></div>
+          <div class="one cell ship" data-size="1" id="one-cell-ship-2" draggable="true"></div>
+          <div class="one cell ship" data-size="1" id="one-cell-ship-3" draggable="true"></div>
+          <div class="one cell ship" data-size="1" id="one-cell-ship-4" draggable="true"></div>
+        </div>
+        <button>Start game</button>
+      </div>
+    </div>
   </div>
-  <h1 id="status">Player turn...</h1>
+  <h1 id="status"></h1>
 </body>
 
 </html>
