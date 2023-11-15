@@ -57,22 +57,21 @@ export default class Gameboard {
     return true;
   }
 
-  recieveAttack([x, y]) {
-    if (this.allAttacks.has(JSON.stringify([x, y]))) return false;
-    const index = this.boardIndex([x, y]);
+  recieveAttack(coOrds) {
+    if (this.allAttacks.has(JSON.stringify(coOrds))) return false;
+    const index = this.boardIndex(coOrds);
     const cell = this.board[index];
     if (cell[2]) {
       cell[2].hit();
-      this.allAttacks.add(JSON.stringify([x, y]));
+      this.allAttacks.add(JSON.stringify(coOrds));
+      return "Hit";
     } else {
-      this.missedShots.add(JSON.stringify([x, y]));
-      this.allAttacks.add(JSON.stringify([x, y]));
+      this.missedShots.add(JSON.stringify(coOrds));
+      this.allAttacks.add(JSON.stringify(coOrds));
+      return "Miss";
     }
-    return true;
   }
   allShipsSunk() {
-    return this.ships.every((ship) => {
-      return ship.isSunk();
-    });
+    return this.ships.every((ship) => ship.sunk === true);
   }
 }
