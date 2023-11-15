@@ -1,3 +1,7 @@
+:root {
+  box-sizing: border-box;
+}
+
 body {
   width: 100vw;
   height: 100vh;
@@ -6,12 +10,23 @@ body {
   align-items: center;
   gap: 200px;
 }
+
 .board {
   width: 500px;
   height: 500px;
   border: 1px solid black;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  flex-shrink: 0;
+}
+
+#computer-player > div {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#computer-player > div:hover {
+  background-color: aquamarine;
 }
 
 .cell {
@@ -20,4 +35,12 @@ body {
 
 .ship {
   background-color: green;
+}
+
+.hit {
+  background-color: red;
+}
+
+.miss {
+  background-color: blue;
 }
