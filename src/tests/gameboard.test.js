@@ -94,4 +94,15 @@ test("Gameboards should be able to report whether or not all of their ships have
   expect(gameboard.allShipsSunk()).toBe(true);
 });
 
+test("Gameboard has a method to clear ships which removes all placed ships", () => {
+  const gameboard = new Gameboard();
+  gameboard.placeShip([1, 1], [2, 1]);
+  gameboard.placeShip([4, 4], [4, 5], [4, 6], [4, 7], [4, 8]);
+  expect(gameboard.ships.length).toBe(2);
+  expect(gameboard.board.every((cell) => cell.length === 2)).toBeFalsy();
+  gameboard.clearShips();
+  expect(gameboard.ships.length).toBe(0);
+  expect(gameboard.board.every((cell) => cell.length === 2)).toBeTruthy();
+});
+
 // test("", () => {});
