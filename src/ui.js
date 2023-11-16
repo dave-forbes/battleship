@@ -7,6 +7,7 @@ import {
   allAttacksComputer,
   allMissesComputer,
   dragAndDropShip,
+  humanPlayer,
 } from "./gameLoop.js";
 
 console.log({ humanPlayerBoard, computerPlayerBoard });
@@ -68,13 +69,21 @@ const clickAttack = (e) => {
 
 computerPlayerBoardUI.addEventListener("click", clickAttack);
 
-const startGame = document.querySelector("button");
+const randomFleet = document.querySelector("#random-fleet");
 const placeShips = document.querySelector(".place-ships");
 const computerFleet = document.querySelector(".computer-fleet");
 
-startGame.addEventListener("click", () => {
+function startGame() {
   computerFleet.classList.toggle("hide");
   placeShips.classList.toggle("hide");
+}
+
+randomFleet.addEventListener("click", () => {
+  humanPlayerBoardUI.innerHTML = "";
+  humanPlayer.gameboard.clearShips();
+  humanPlayer.randomGenerateShips();
+  generateDivsFromGameboard(humanPlayer.gameboard.board, humanPlayerBoardUI);
+  startGame();
 });
 
 // drag and drop stuff
@@ -95,16 +104,19 @@ humanPlayerBoardUI.addEventListener("drop", (e) => {
   e.preventDefault();
   const id = e.dataTransfer.getData("text");
   const originalTarget = document.getElementById(id);
-  const originalParent = originalTarget.parentElement;
-  originalParent.removeChild(originalTarget);
   const size = originalTarget.dataset.size;
   const vertical = originalTarget.classList.contains("vertical");
   const x = Number(e.target.dataset.X);
   const y = Number(e.target.dataset.Y);
   const coOrds = [x, y];
-  dragAndDropShip(coOrds, size, vertical);
-  humanPlayerBoardUI.innerHTML = "";
-  generateDivsFromGameboard(humanPlayerBoard, humanPlayerBoardUI);
+  const success = dragAndDropShip(coOrds, size, vertical);
+  if (success) {
+    const originalParent = originalTarget.parentElement;
+    originalParent.removeChild(originalTarget);
+    humanPlayerBoardUI.innerHTML = "";
+    generateDivsFromGameboard(humanPlayerBoard, humanPlayerBoardUI);
+    if (humanPlayer.gameboard.allShipsPlaced()) startGame();
+  }
 });
 
 placeShipsContainer.addEventListener("click", (e) => {
