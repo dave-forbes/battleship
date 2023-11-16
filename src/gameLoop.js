@@ -26,12 +26,14 @@ const dragAndDropShip = (coOrds, size, vertical) => {
     const [x, y] = coOrds;
     const coordinates = Array.from({ length: size }, (_, i) => [x + i, y]);
     console.log({ coOrds, coordinates });
-    humanPlayer.gameboard.placeShip(...coordinates);
+    const success = humanPlayer.gameboard.placeShip(...coordinates);
+    return success === true;
   } else {
     const [x, y] = coOrds;
     const coordinates = Array.from({ length: size }, (_, i) => [x, y + i]);
     console.log({ coOrds, coordinates });
-    humanPlayer.gameboard.placeShip(...coordinates);
+    const success = humanPlayer.gameboard.placeShip(...coordinates);
+    return success === true;
   }
 };
 
@@ -44,4 +46,5 @@ export {
   allAttacksComputer,
   allMissesComputer,
   dragAndDropShip,
+  humanPlayer,
 };
