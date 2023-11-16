@@ -105,4 +105,22 @@ test("Gameboard has a method to clear ships which removes all placed ships", () 
   expect(gameboard.board.every((cell) => cell.length === 2)).toBeTruthy();
 });
 
+test("Gameboard has a method to check if all ships have been placed", () => {
+  const gameboard = new Gameboard();
+  gameboard.placeShip([6, 1]);
+  gameboard.placeShip([8, 5]);
+  gameboard.placeShip([0, 0]);
+  gameboard.placeShip([9, 9]);
+  expect(gameboard.allShipsPlaced()).toBeFalsy();
+  gameboard.placeShip([6, 7], [6, 8]);
+  gameboard.placeShip([3, 0], [4, 0]);
+  gameboard.placeShip([3, 2], [4, 2]);
+  expect(gameboard.allShipsPlaced()).toBeFalsy();
+  gameboard.placeShip([0, 4], [0, 5], [0, 6]);
+  gameboard.placeShip([2, 4], [2, 5], [2, 6]);
+  gameboard.placeShip([4, 4], [4, 5], [4, 6], [4, 7]);
+  console.log(gameboard.ships);
+  expect(gameboard.allShipsPlaced()).toBeTruthy();
+});
+
 // test("", () => {});

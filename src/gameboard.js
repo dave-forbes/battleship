@@ -83,4 +83,8 @@ export default class Gameboard {
     this.board = this.generateBoard();
     this.ships = [];
   }
+
+  allShipsPlaced() {
+    return this.ships.length === 10;
+  }
 }
