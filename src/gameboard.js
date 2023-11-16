@@ -25,11 +25,15 @@ export default class Gameboard {
   placeShip(...coOrds) {
     const coordinates = [...coOrds];
 
-    const isCellOccupiedOrNearby = (x, y) => {
+    const inapropriatePlacement = (x, y) => {
       return this.board.some((cell) => {
         const cellX = cell[0];
         const cellY = cell[1];
         return (
+          x > 9 ||
+          x < 0 ||
+          y > 9 ||
+          y < 0 ||
           (x === cellX && y === cellY && cell.length === 3) ||
           (Math.abs(x - cellX) === 1 && y === cellY && cell.length === 3) ||
           (Math.abs(x - cellX) === 1 &&
@@ -41,9 +45,9 @@ export default class Gameboard {
     };
 
     for (const [x, y] of coordinates) {
-      if (isCellOccupiedOrNearby(x, y)) {
+      if (inapropriatePlacement(x, y)) {
         return false;
-        // Either ne of the cells is already occupied or one is nearby so do not add ship
+        // Either coordinates not between 0-9 or one of the cells is already occupiedone is nearby, so do not add ship.
       }
     }
 

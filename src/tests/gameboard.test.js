@@ -15,6 +15,14 @@ test("Gameboards should be able to place ships at specific coordinates by callin
   console.log(gameboard.board[gameboard.boardIndex([1, 1])]);
 });
 
+test("Can't place ships out of range 0-9 on 10 x 10 board.", () => {
+  const gameboard = new Gameboard();
+  expect(gameboard.placeShip([-1, 0])).toBeFalsy();
+  expect(gameboard.placeShip([0, -1])).toBeFalsy();
+  expect(gameboard.placeShip([0, 10])).toBeFalsy();
+  expect(gameboard.placeShip([10, 0])).toBeFalsy();
+});
+
 test("Can't place a ship over co-ordinates that are already occupied", () => {
   const gameboard = new Gameboard();
   gameboard.placeShip([1, 1], [2, 1]);
