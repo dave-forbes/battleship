@@ -11,12 +11,12 @@ function GameController() {
   const computerPlayerBoard = computerPlayer.gameboard.board;
 
   const gameLoop = (coOrds) => {
-    humanPlayer.attack(computerPlayer, coOrds);
-    if (computerPlayer.gameboard.allShipsSunk())
-      return "Game over, player wins";
-    computerPlayer.attack(humanPlayer);
-    if (humanPlayer.gameboard.allShipsSunk())
-      return "Game over, computer wins!";
+    let winner = false;
+    const success = humanPlayer.attack(computerPlayer, coOrds);
+    if (computerPlayer.gameboard.allShipsSunk()) winner = "Human";
+    if (success) computerPlayer.attack(humanPlayer);
+    if (humanPlayer.gameboard.allShipsSunk()) winner = "Computer";
+    return winner;
   };
 
   const dropShip = (coOrds, size, vertical) => {
@@ -41,6 +41,20 @@ function GameController() {
   const allAttacksComputer = humanPlayer.gameboard.allAttacks;
   const allMissesComputer = humanPlayer.gameboard.missedShots;
 
+  function scoreboard() {
+    const humanHits = allAttacksHuman.size - allMissesHuman.size;
+    const humanMisses = allMissesHuman.size;
+    const humanShipsSunk = computerPlayer.gameboard.ships.reduce(
+      (shipsSunk, ship) => (ship.sunk === true ? ++shipsSunk : shipsSunk),
+      0
+    );
+    const humanShipsLost = humanPlayer.gameboard.ships.reduce(
+      (shipsSunk, ship) => (ship.sunk === true ? ++shipsSunk : shipsSunk),
+      0
+    );
+    return { humanHits, humanMisses, humanShipsSunk, humanShipsLost };
+  }
+
   return {
     humanPlayerBoard,
     computerPlayerBoard,
@@ -51,6 +65,7 @@ function GameController() {
     gameLoop,
     dropShip,
     generateRandomFleet,
+    scoreboard,
   };
 }
 
