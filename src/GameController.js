@@ -30,6 +30,12 @@ function GameController() {
     return { newBoard, allShipsPlaced };
   };
 
+  const generateRandomFleet = () => {
+    humanPlayer.gameboard.clearShips();
+    const newBoard = humanPlayer.randomGenerateShips();
+    return newBoard;
+  };
+
   const allAttacksHuman = computerPlayer.gameboard.allAttacks;
   const allMissesHuman = computerPlayer.gameboard.missedShots;
   const allAttacksComputer = humanPlayer.gameboard.allAttacks;
@@ -44,6 +50,7 @@ function GameController() {
     allMissesComputer,
     gameLoop,
     dropShip,
+    generateRandomFleet,
   };
 }
 
