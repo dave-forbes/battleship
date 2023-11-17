@@ -66,8 +66,10 @@ const hidePlaceShipsShowComputerFleet = () => {
   setTimeout(() => {
     placeShips.classList.toggle("hide");
     computerFleet.classList.toggle("hide");
-  }, 1000);
-  computerFleet.classList.toggle("fade-out");
+  }, 500);
+  setTimeout(() => {
+    computerFleet.classList.toggle("fade-out");
+  }, 750);
 };
 
 const clickClearFleet = () => {

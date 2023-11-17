@@ -191,8 +191,8 @@ button:hover {
   width: 50px;
 }
 
-.place-ships, .computer-fleet {
-  transition: 1s;
+div.place-ships, div.computer-fleet {
+  transition: 0.5s;
 }
 
 .fade-out {
