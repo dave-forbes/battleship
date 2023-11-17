@@ -82,11 +82,16 @@ function startGame() {
 function clickClearFleet() {
   humanPlayerBoardUI.innerHTML = "";
   humanPlayer.gameboard.clearShips();
-  console.log(humanPlayer.gameboard);
+  const shipNodes = document.querySelectorAll(".ship.hide");
+  shipNodes.forEach((shipNode) => shipNode.classList.toggle("hide"));
   generateDivsFromGameboard(humanPlayer.gameboard.board, humanPlayerBoardUI);
+  const verticalShips = document.querySelectorAll(".ship.vertical");
+  verticalShips.forEach((verticalShip) => {
+    verticalShip.classList.toggle("vertical");
+    swapWidthAndHeight(verticalShip);
+  });
+  // location.reload();
 }
-
-// clearFleet.onclick = clickClearFleet();
 
 clearFleet.addEventListener("click", clickClearFleet);
 
@@ -125,7 +130,7 @@ humanPlayerBoardUI.addEventListener("drop", (e) => {
   if (success) {
     originalTarget.classList.add("hide");
     humanPlayerBoardUI.innerHTML = "";
-    generateDivsFromGameboard(humanPlayerBoard, humanPlayerBoardUI);
+    generateDivsFromGameboard(humanPlayer.gameboard.board, humanPlayerBoardUI);
     if (humanPlayer.gameboard.allShipsPlaced()) startGame();
   }
 });
