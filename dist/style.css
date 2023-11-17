@@ -198,3 +198,8 @@ div.place-ships, div.computer-fleet {
 .fade-out {
   opacity: 0;
 }
+
+.player-wins, .computer-wins {
+  width: 500px;
+  justify-items: center;
+}
