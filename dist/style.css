@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Onest:wght@100;300;500;700;900&display=swap');
+
 :root {
   box-sizing: border-box;
+  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Onest', sans-serif;
+  color: aliceblue;
 }
 
 body {
@@ -10,10 +15,42 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0;
+  background-color: darkblue;
 }
 
-h1 {
+h1, h2 {
   text-align: center;
+  margin: 1rem;
+}
+
+p {
+  margin: 0;
+  align-self: center;
+  text-align: center;
+  width: 80%;
+  flex-shrink: 0;
+}
+
+button {
+  background-color: aliceblue;
+  color: black;
+  border: none;
+  padding: 1rem;
+  border-radius: 2px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: black;
+  color: aliceblue;
+}
+
+.buttons {
+  display: flex;
+  gap: 2rem;
 }
 
 .title {
@@ -24,13 +61,12 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 200px;
+  gap: 10vw;
 }
 
 .place-ships-container {
   width: 500px;
   height: 500px;
-  border: 1px solid black;
 }
 
 .board {
@@ -40,9 +76,12 @@ h1 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   flex-shrink: 0;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
-#computer-player>div, .place-ships-container > div > div {
+#computer-player>div,
+.place-ships-container>div>div {
   cursor: pointer;
   transition: 0.2s;
 }
@@ -62,22 +101,37 @@ h1 {
 }
 
 .hit {
+  /* background-color: red; */
+  background-color: grey;
+}
+
+.hit::before {
+  top: 17px;
+  left: 17px;
+  content: '';
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  -moz-border-radius: 7.5px;
+  -webkit-border-radius: 7.5px;
+  border-radius: 7.5px;
   background-color: red;
+  position: absolute;
 }
 
 .miss::before {
-    top: 17px;
-    left: 17px;
-    content: '';
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    -moz-border-radius: 7.5px;
-    -webkit-border-radius: 7.5px;
-    border-radius: 7.5px;
-    background-color: black;
-    position: absolute;
- }
+  top: 17px;
+  left: 17px;
+  content: '';
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  -moz-border-radius: 7.5px;
+  -webkit-border-radius: 7.5px;
+  border-radius: 7.5px;
+  background-color: black;
+  position: absolute;
+}
 
 .hide {
   display: none;
@@ -86,10 +140,20 @@ h1 {
 /* Draggable ships */
 
 .place-ships-container {
-  display: grid;
-  align-content: space-evenly;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
   justify-items: center;
+  /* border: 2px black solid;
+  background-color: rgb(43, 43, 209); */
+  align-items: center;
+  justify-content: space-around;
+}
+
+.ship-container {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .four-cell-ships,
@@ -100,10 +164,15 @@ h1 {
   gap: 20px;
 }
 
-.four, .three, .two,.one {
+.four,
+.three,
+.two,
+.one {
   height: 50px;
   flex-shrink: 0;
   flex-grow: 0;
+  border-radius: 3px;
+  transition: 0.2s;
 }
 
 .four {
