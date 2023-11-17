@@ -18,6 +18,19 @@ const generateDivsFromGameboard = (board, node) => {
   }
 };
 
+generateDivsFromGameboard(game.humanPlayerBoard, humanPlayerBoardUI);
+generateDivsFromGameboard(game.computerPlayerBoard, computerPlayerBoardUI);
+
+const clickAttack = (e) => {
+  const x = Number(e.target.dataset.X);
+  const y = Number(e.target.dataset.Y);
+  const coOrds = [x, y];
+  const status = game.gameLoop(coOrds);
+  const statusUI = document.querySelector("#status");
+  statusUI.textContent = status;
+  refreshUI();
+};
+
 const refreshUI = () => {
   const computerDivs = document.querySelectorAll("#computer-player > div");
   computerDivs.forEach((div) => {
@@ -46,76 +59,25 @@ const refreshUI = () => {
   });
 };
 
-generateDivsFromGameboard(game.humanPlayerBoard, humanPlayerBoardUI);
-generateDivsFromGameboard(game.computerPlayerBoard, computerPlayerBoardUI);
-
-const clickAttack = (e) => {
-  const x = Number(e.target.dataset.X);
-  const y = Number(e.target.dataset.Y);
-  const coOrds = [x, y];
-  const status = game.gameLoop(coOrds);
-  const statusUI = document.querySelector("#status");
-  statusUI.textContent = status;
-  refreshUI();
-};
-
-computerPlayerBoardUI.addEventListener("click", clickAttack);
-
-const randomFleet = document.querySelector("#random-fleet");
-const clearFleet = document.querySelector("#clear-fleet");
-const placeShips = document.querySelector(".place-ships");
-const computerFleet = document.querySelector(".computer-fleet");
-
-function hidePlaceShipsShowComputerFleet() {
+const hidePlaceShipsShowComputerFleet = () => {
+  const computerFleet = document.querySelector(".computer-fleet");
+  const placeShips = document.querySelector(".place-ships");
   computerFleet.classList.toggle("hide");
   placeShips.classList.toggle("hide");
-}
+};
 
-function clickClearFleet() {
-  // humanPlayerBoardUI.innerHTML = "";
-  // humanPlayer.gameboard.clearShips();
-  // const shipNodes = document.querySelectorAll(".ship.hide");
-  // shipNodes.forEach((shipNode) => shipNode.classList.toggle("hide"));
-  // generateDivsFromGameboard(
-  //   game.humanPlayer.gameboard.board,
-  //   humanPlayerBoardUI
-  // );
-  // const verticalShips = document.querySelectorAll(".ship.vertical");
-  // verticalShips.forEach((verticalShip) => {
-  //   verticalShip.classList.toggle("vertical");
-  //   swapWidthAndHeight(verticalShip);
-  // });
+const clickClearFleet = () => {
   location.reload();
-}
+};
 
-clearFleet.addEventListener("click", clickClearFleet);
-
-randomFleet.addEventListener("click", () => {
+const clickRandomFleet = () => {
   humanPlayerBoardUI.innerHTML = "";
-  game.humanPlayer.gameboard.clearShips();
-  game.humanPlayer.randomGenerateShips();
-  generateDivsFromGameboard(
-    game.humanPlayer.gameboard.board,
-    humanPlayerBoardUI
-  );
+  const newBoard = game.generateRandomFleet();
+  generateDivsFromGameboard(newBoard, humanPlayerBoardUI);
   hidePlaceShipsShowComputerFleet();
-});
+};
 
-// drag and drop stuff
-
-const placeShipsContainer = document.querySelector(".place-ships-container");
-
-placeShipsContainer.addEventListener("dragstart", (e) => {
-  if (e.target.classList.contains("ship")) {
-    e.dataTransfer.setData("text", e.target.id);
-  }
-});
-
-humanPlayerBoardUI.addEventListener("dragover", (e) => {
-  e.preventDefault();
-});
-
-function dropShipUI(e) {
+const dropShipUI = (e) => {
   e.preventDefault();
   const id = e.dataTransfer.getData("text");
   const originalTarget = document.getElementById(id);
@@ -133,18 +95,16 @@ function dropShipUI(e) {
   if (result.allShipsPlaced) {
     hidePlaceShipsShowComputerFleet();
   }
-}
+};
 
-humanPlayerBoardUI.addEventListener("drop", dropShipUI);
-
-function swapWidthAndHeight(node) {
+const swapWidthAndHeight = (node) => {
   const width = node.clientWidth;
   const height = node.clientHeight;
   node.style.width = `${height}px`;
   node.style.height = `${width}px`;
-}
+};
 
-function clickShip(e) {
+const clickShip = (e) => {
   const node = e.target;
   const id = e.target.id;
   if (node.classList.contains("ship")) {
@@ -160,6 +120,21 @@ function clickShip(e) {
       }
     });
   }
-}
+};
 
-placeShipsContainer.addEventListener("click", clickShip);
+(function eventListeners() {
+  const randomFleet = document.querySelector("#random-fleet");
+  const clearFleet = document.querySelector("#clear-fleet");
+  const placeShipsContainer = document.querySelector(".place-ships-container");
+  placeShipsContainer.addEventListener("click", clickShip);
+  humanPlayerBoardUI.addEventListener("drop", dropShipUI);
+  humanPlayerBoardUI.addEventListener("dragover", (e) => e.preventDefault());
+  placeShipsContainer.addEventListener("dragstart", (e) =>
+    e.target.classList.contains("ship")
+      ? e.dataTransfer.setData("text", e.target.id)
+      : false
+  );
+  clearFleet.addEventListener("click", clickClearFleet);
+  computerPlayerBoardUI.addEventListener("click", clickAttack);
+  randomFleet.addEventListener("click", clickRandomFleet);
+})();
