@@ -17,7 +17,10 @@
       <h1>Your fleet</h1>
       <div id="human-player" class="board"></div>
     </div>
-    <div class="computer-fleet hide">
+    <div class="player-wins hide fade-out">
+    </div>
+    <div class="computer-wins hide fade-out"></div>
+    <div class="computer-fleet hide fade-out">
       <h1>Computer fleet</h1>
       <div id="computer-player" class="board"></div>
     </div>
@@ -26,25 +29,25 @@
       <div class="place-ships-container">
         <p>Click on ships to change orientation, then drag and drop ships on board.</p>
         <div class="ship-container">
-        <div class="four-cell-ships">
-          <div class="four cell ship" id="four-cell-ship" data-size="4" draggable="true"></div>
+          <div class="four-cell-ships">
+            <div class="four cell ship" id="four-cell-ship" data-size="4" draggable="true"></div>
+          </div>
+          <div class="three-cell-ships">
+            <div class="three cell ship" data-size="3" id="three-cell-ship-1" draggable="true"></div>
+            <div class="three cell ship" data-size="3" id="three-cell-ship-2" draggable="true"></div>
+          </div>
+          <div class="two-cell-ships">
+            <div class="two cell ship" data-size="2" id="two-cell-ship-1" draggable="true"></div>
+            <div class="two cell ship" data-size="2" id="two-cell-ship-2" draggable="true"></div>
+            <div class="two cell ship" data-size="2" id="two-cell-ship-3" draggable="true"></div>
+          </div>
+          <div class="one-cell-ships">
+            <div class="one cell ship" data-size="1" id="one-cell-ship-1" draggable="true"></div>
+            <div class="one cell ship" data-size="1" id="one-cell-ship-2" draggable="true"></div>
+            <div class="one cell ship" data-size="1" id="one-cell-ship-3" draggable="true"></div>
+            <div class="one cell ship" data-size="1" id="one-cell-ship-4" draggable="true"></div>
+          </div>
         </div>
-        <div class="three-cell-ships">
-          <div class="three cell ship" data-size="3" id="three-cell-ship-1" draggable="true"></div>
-          <div class="three cell ship" data-size="3" id="three-cell-ship-2" draggable="true"></div>
-        </div>
-        <div class="two-cell-ships">
-          <div class="two cell ship" data-size="2" id="two-cell-ship-1" draggable="true"></div>
-          <div class="two cell ship" data-size="2" id="two-cell-ship-2" draggable="true"></div>
-          <div class="two cell ship" data-size="2" id="two-cell-ship-3" draggable="true"></div>
-        </div>
-        <div class="one-cell-ships">
-          <div class="one cell ship" data-size="1" id="one-cell-ship-1" draggable="true"></div>
-          <div class="one cell ship" data-size="1" id="one-cell-ship-2" draggable="true"></div>
-          <div class="one cell ship" data-size="1" id="one-cell-ship-3" draggable="true"></div>
-          <div class="one cell ship" data-size="1" id="one-cell-ship-4" draggable="true"></div>
-        </div>
-      </div>
         <div class="buttons">
           <button id="random-fleet">Random Fleet</button>
           <button id="clear-fleet">Clear Fleet</button>
