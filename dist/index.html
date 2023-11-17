@@ -24,6 +24,8 @@
     <div class="place-ships">
       <h1>Place your ships</h1>
       <div class="place-ships-container">
+        <p>Click on ships to change orientation, then drag and drop ships on board.</p>
+        <div class="ship-container">
         <div class="four-cell-ships">
           <div class="four cell ship" id="four-cell-ship" data-size="4" draggable="true"></div>
         </div>
@@ -42,7 +44,11 @@
           <div class="one cell ship" data-size="1" id="one-cell-ship-3" draggable="true"></div>
           <div class="one cell ship" data-size="1" id="one-cell-ship-4" draggable="true"></div>
         </div>
-        <button>Start game</button>
+      </div>
+        <div class="buttons">
+          <button id="random-fleet">Random Fleet</button>
+          <button id="clear-fleet">Clear Fleet</button>
+        </div>
       </div>
     </div>
   </div>
