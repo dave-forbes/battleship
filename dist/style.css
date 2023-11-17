@@ -64,11 +64,6 @@ button:hover {
   gap: 10vw;
 }
 
-.place-ships-container {
-  width: 500px;
-  height: 500px;
-}
-
 .board {
   width: 500px;
   height: 500px;
@@ -101,11 +96,10 @@ button:hover {
 }
 
 .hit {
-  /* background-color: red; */
   background-color: grey;
 }
 
-.hit::before {
+.hit::before, .miss::before {
   top: 17px;
   left: 17px;
   content: '';
@@ -115,22 +109,15 @@ button:hover {
   -moz-border-radius: 7.5px;
   -webkit-border-radius: 7.5px;
   border-radius: 7.5px;
-  background-color: red;
+  
   position: absolute;
 }
+.hit::before {
+  background-color: red;
+}
 
-.miss::before {
-  top: 17px;
-  left: 17px;
-  content: '';
-  display: inline-block;
-  width: 15px;
-  height: 15px;
-  -moz-border-radius: 7.5px;
-  -webkit-border-radius: 7.5px;
-  border-radius: 7.5px;
+.miss::before {  
   background-color: black;
-  position: absolute;
 }
 
 .hide {
@@ -140,11 +127,11 @@ button:hover {
 /* Draggable ships */
 
 .place-ships-container {
+  width: 500px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   justify-items: center;
-  /* border: 2px black solid;
-  background-color: rgb(43, 43, 209); */
   align-items: center;
   justify-content: space-around;
 }
@@ -169,8 +156,6 @@ button:hover {
 .two,
 .one {
   height: 50px;
-  flex-shrink: 0;
-  flex-grow: 0;
   border-radius: 3px;
   transition: 0.2s;
 }
@@ -202,4 +187,5 @@ div.place-ships, div.computer-fleet {
 .player-wins, .computer-wins {
   width: 500px;
   justify-items: center;
+  transition: 0.5s;
 }
