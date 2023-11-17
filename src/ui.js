@@ -25,10 +25,12 @@ const clickAttack = (e) => {
   const x = Number(e.target.dataset.X);
   const y = Number(e.target.dataset.Y);
   const coOrds = [x, y];
-  const status = game.gameLoop(coOrds);
+  const winner = game.gameLoop(coOrds);
+  refreshUI();
+  if (winner === "Human") {
+  }
   const statusUI = document.querySelector("#status");
   statusUI.textContent = status;
-  refreshUI();
 };
 
 const refreshUI = () => {
@@ -59,16 +61,14 @@ const refreshUI = () => {
   });
 };
 
-const hidePlaceShipsShowComputerFleet = () => {
-  const computerFleet = document.querySelector(".computer-fleet");
-  const placeShips = document.querySelector(".place-ships");
-  placeShips.classList.toggle("fade-out");
+const hideXShowY = (nodeX, nodeY) => {
+  nodeX.classList.toggle("fade-out");
   setTimeout(() => {
-    placeShips.classList.toggle("hide");
-    computerFleet.classList.toggle("hide");
+    nodeX.classList.toggle("hide");
+    nodeY.classList.toggle("hide");
   }, 500);
   setTimeout(() => {
-    computerFleet.classList.toggle("fade-out");
+    nodeY.classList.toggle("fade-out");
   }, 750);
 };
 
@@ -80,7 +80,9 @@ const clickRandomFleet = () => {
   humanPlayerBoardUI.innerHTML = "";
   const newBoard = game.generateRandomFleet();
   generateDivsFromGameboard(newBoard, humanPlayerBoardUI);
-  hidePlaceShipsShowComputerFleet();
+  const computerFleet = document.querySelector(".computer-fleet");
+  const placeShips = document.querySelector(".place-ships");
+  hideXShowY(placeShips, computerFleet);
 };
 
 const dropShipUI = (e) => {
@@ -99,7 +101,9 @@ const dropShipUI = (e) => {
     generateDivsFromGameboard(result.newBoard, humanPlayerBoardUI);
   }
   if (result.allShipsPlaced) {
-    hidePlaceShipsShowComputerFleet();
+    const computerFleet = document.querySelector(".computer-fleet");
+    const placeShips = document.querySelector(".place-ships");
+    hideXShowY(placeShips, computerFleet);
   }
 };
 
