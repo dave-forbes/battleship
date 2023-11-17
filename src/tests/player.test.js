@@ -30,17 +30,6 @@ test("Players can attack the enemy Gameboard.", () => {
   ).toBe(true);
 });
 
-test("Players turn changes after attacking", () => {
-  const humanPlayer = new Player();
-  const computerPlayer = new Player("computer");
-  humanPlayer.attack(computerPlayer, [0, 1]);
-  expect(humanPlayer.turn).toBeFalsy();
-  expect(computerPlayer.turn).toBeTruthy();
-  computerPlayer.attack(humanPlayer);
-  expect(computerPlayer.turn).toBeFalsy();
-  expect(humanPlayer.turn).toBeTruthy();
-});
-
 test("Players can't shoot the same coordinate twice", () => {
   const humanPlayer = new Player();
   const computerPlayer = new Player("computer");

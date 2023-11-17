@@ -4,7 +4,6 @@ export default class Player {
   constructor(computer) {
     this.computer = computer === "computer" ? true : false;
     this.gameboard = new Gameboard();
-    this.turn = this.computer === false ? true : false;
   }
 
   attack(opposingPlayer, coOrds) {
@@ -82,5 +81,6 @@ export default class Player {
     placeRandomShip(1);
     placeRandomShip(1);
     placeRandomShip(1);
+    return this.gameboard.board;
   }
 }
