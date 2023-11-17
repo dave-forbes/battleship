@@ -27,10 +27,32 @@ const clickAttack = (e) => {
   const coOrds = [x, y];
   const winner = game.gameLoop(coOrds);
   refreshUI();
+  const score = game.scoreboard();
   if (winner === "Human") {
+    const computerFleet = document.querySelector("div.computer-fleet");
+    const playerWins = document.querySelector("div.player-wins");
+    hideXShowY(computerFleet, playerWins);
+    playerWins.style.display = "grid";
+    playerWins.innerHTML = `<h1>You won!</h1>
+    <h3>Your hits: ${score.humanHits}</h3>
+    <h3>Your misses: ${score.humanMisses}</h3>
+    <h3>Your ships lost: ${score.humanShipsLost}</h3>
+    <button id="play-again">Play Again?</button>`;
+    const playAgain = document.querySelector("#play-again");
+    playAgain.addEventListener("click", clickClearFleet);
+  } else if (winner === "Computer") {
+    const playerFleet = document.querySelector("div.player-fleet");
+    const computerWins = document.querySelector("div.computer-wins");
+    hideXShowY(playerFleet, computerWins);
+    computerWins.style.display = "grid";
+    computerWins.innerHTML = `<h1>Computer won!</h1>
+    <h3>Your hits: ${score.humanHits}</h3>
+    <h3>Your misses: ${score.humanMisses}</h3>
+    <h3>Computer ships sunk: ${score.humanShipsSunk}</h3>
+    <button id="play-again">Play Again?</button>`;
+    const playAgain = document.querySelector("#play-again");
+    playAgain.addEventListener("click", clickClearFleet);
   }
-  const statusUI = document.querySelector("#status");
-  statusUI.textContent = status;
 };
 
 const refreshUI = () => {
