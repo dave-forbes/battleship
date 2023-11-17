@@ -1,22 +1,10 @@
-import {
-  humanPlayerBoard,
-  computerPlayerBoard,
-  gameLoop,
-  allAttacksHuman,
-  allMissesHuman,
-  allAttacksComputer,
-  allMissesComputer,
-  dragAndDropShip,
-  humanPlayer,
-} from "./gameLoop.js";
+import GameController from "./GameController.js";
 
-console.log({ humanPlayerBoard, computerPlayerBoard });
+const game = GameController();
 
 const humanPlayerBoardUI = document.querySelector("#human-player");
 
 const computerPlayerBoardUI = document.querySelector("#computer-player");
-
-const statusUI = document.querySelector("#status");
 
 const generateDivsFromGameboard = (board, node) => {
   for (const coordinate of board) {
@@ -36,9 +24,9 @@ const refreshUI = () => {
     const x = div.dataset.X;
     const y = div.dataset.Y;
     const string = `[${x},${y}]`;
-    if (allAttacksHuman.has(string) && allMissesHuman.has(string)) {
+    if (game.allAttacksHuman.has(string) && game.allMissesHuman.has(string)) {
       div.classList.add("miss");
-    } else if (allAttacksHuman.has(string)) {
+    } else if (game.allAttacksHuman.has(string)) {
       div.classList.add("hit");
     }
   });
@@ -47,22 +35,26 @@ const refreshUI = () => {
     const x = div.dataset.X;
     const y = div.dataset.Y;
     const string = `[${x},${y}]`;
-    if (allAttacksComputer.has(string) && allMissesComputer.has(string)) {
+    if (
+      game.allAttacksComputer.has(string) &&
+      game.allMissesComputer.has(string)
+    ) {
       div.classList.add("miss");
-    } else if (allAttacksComputer.has(string)) {
+    } else if (game.allAttacksComputer.has(string)) {
       div.classList.add("hit");
     }
   });
 };
 
-generateDivsFromGameboard(humanPlayerBoard, humanPlayerBoardUI);
-generateDivsFromGameboard(computerPlayerBoard, computerPlayerBoardUI);
+generateDivsFromGameboard(game.humanPlayerBoard, humanPlayerBoardUI);
+generateDivsFromGameboard(game.computerPlayerBoard, computerPlayerBoardUI);
 
 const clickAttack = (e) => {
   const x = Number(e.target.dataset.X);
   const y = Number(e.target.dataset.Y);
   const coOrds = [x, y];
-  const status = gameLoop(coOrds);
+  const status = game.gameLoop(coOrds);
+  const statusUI = document.querySelector("#status");
   statusUI.textContent = status;
   refreshUI();
 };
@@ -74,33 +66,39 @@ const clearFleet = document.querySelector("#clear-fleet");
 const placeShips = document.querySelector(".place-ships");
 const computerFleet = document.querySelector(".computer-fleet");
 
-function startGame() {
+function hidePlaceShipsShowComputerFleet() {
   computerFleet.classList.toggle("hide");
   placeShips.classList.toggle("hide");
 }
 
 function clickClearFleet() {
-  humanPlayerBoardUI.innerHTML = "";
-  humanPlayer.gameboard.clearShips();
-  const shipNodes = document.querySelectorAll(".ship.hide");
-  shipNodes.forEach((shipNode) => shipNode.classList.toggle("hide"));
-  generateDivsFromGameboard(humanPlayer.gameboard.board, humanPlayerBoardUI);
-  const verticalShips = document.querySelectorAll(".ship.vertical");
-  verticalShips.forEach((verticalShip) => {
-    verticalShip.classList.toggle("vertical");
-    swapWidthAndHeight(verticalShip);
-  });
-  // location.reload();
+  // humanPlayerBoardUI.innerHTML = "";
+  // humanPlayer.gameboard.clearShips();
+  // const shipNodes = document.querySelectorAll(".ship.hide");
+  // shipNodes.forEach((shipNode) => shipNode.classList.toggle("hide"));
+  // generateDivsFromGameboard(
+  //   game.humanPlayer.gameboard.board,
+  //   humanPlayerBoardUI
+  // );
+  // const verticalShips = document.querySelectorAll(".ship.vertical");
+  // verticalShips.forEach((verticalShip) => {
+  //   verticalShip.classList.toggle("vertical");
+  //   swapWidthAndHeight(verticalShip);
+  // });
+  location.reload();
 }
 
 clearFleet.addEventListener("click", clickClearFleet);
 
 randomFleet.addEventListener("click", () => {
   humanPlayerBoardUI.innerHTML = "";
-  humanPlayer.gameboard.clearShips();
-  humanPlayer.randomGenerateShips();
-  generateDivsFromGameboard(humanPlayer.gameboard.board, humanPlayerBoardUI);
-  startGame();
+  game.humanPlayer.gameboard.clearShips();
+  game.humanPlayer.randomGenerateShips();
+  generateDivsFromGameboard(
+    game.humanPlayer.gameboard.board,
+    humanPlayerBoardUI
+  );
+  hidePlaceShipsShowComputerFleet();
 });
 
 // drag and drop stuff
@@ -117,7 +115,7 @@ humanPlayerBoardUI.addEventListener("dragover", (e) => {
   e.preventDefault();
 });
 
-humanPlayerBoardUI.addEventListener("drop", (e) => {
+function dropShipUI(e) {
   e.preventDefault();
   const id = e.dataTransfer.getData("text");
   const originalTarget = document.getElementById(id);
@@ -126,14 +124,18 @@ humanPlayerBoardUI.addEventListener("drop", (e) => {
   const x = Number(e.target.dataset.X);
   const y = Number(e.target.dataset.Y);
   const coOrds = [x, y];
-  const success = dragAndDropShip(coOrds, size, vertical);
-  if (success) {
+  const result = game.dropShip(coOrds, size, vertical);
+  if (result.newBoard) {
     originalTarget.classList.add("hide");
     humanPlayerBoardUI.innerHTML = "";
-    generateDivsFromGameboard(humanPlayer.gameboard.board, humanPlayerBoardUI);
-    if (humanPlayer.gameboard.allShipsPlaced()) startGame();
+    generateDivsFromGameboard(result.newBoard, humanPlayerBoardUI);
   }
-});
+  if (result.allShipsPlaced) {
+    hidePlaceShipsShowComputerFleet();
+  }
+}
+
+humanPlayerBoardUI.addEventListener("drop", dropShipUI);
 
 function swapWidthAndHeight(node) {
   const width = node.clientWidth;
