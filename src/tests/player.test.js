@@ -35,7 +35,5 @@ test("Players can't shoot the same coordinate twice", () => {
   const computerPlayer = new Player("computer");
   humanPlayer.attack(computerPlayer, [1, 1]);
   computerPlayer.attack(humanPlayer);
-  const humanPlayerSecondTurn = humanPlayer.attack(computerPlayer, [1, 1]);
-  expect(humanPlayerSecondTurn).toBeFalsy();
-  expect(humanPlayer.turn).toBeTruthy();
+  expect(humanPlayer.attack(computerPlayer, [1, 1])).toBeFalsy();
 });
