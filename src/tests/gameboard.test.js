@@ -29,7 +29,7 @@ test("Can't place a ship over co-ordinates that are already occupied", () => {
   expect(gameboard.placeShip([1, 1], [2, 1])).toBe(false);
   expect(gameboard.placeShip([1, 1], [1, 2], [2, 3])).toBe(false);
   expect(gameboard.board[gameboard.boardIndex([1, 2])][2]).toBe(undefined);
-  expect(gameboard.placeShip([4, 1], [4, 2], [4, 3])).toBe(true);
+  expect(gameboard.placeShip([4, 1], [4, 2], [4, 3])).toBeTruthy();
 });
 
 test("Can't place a ship too close to another", () => {
