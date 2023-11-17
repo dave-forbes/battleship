@@ -62,8 +62,12 @@ const refreshUI = () => {
 const hidePlaceShipsShowComputerFleet = () => {
   const computerFleet = document.querySelector(".computer-fleet");
   const placeShips = document.querySelector(".place-ships");
-  computerFleet.classList.toggle("hide");
-  placeShips.classList.toggle("hide");
+  placeShips.classList.toggle("fade-out");
+  setTimeout(() => {
+    placeShips.classList.toggle("hide");
+    computerFleet.classList.toggle("hide");
+  }, 1000);
+  computerFleet.classList.toggle("fade-out");
 };
 
 const clickClearFleet = () => {

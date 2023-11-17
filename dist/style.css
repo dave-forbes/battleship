@@ -190,3 +190,11 @@ button:hover {
 .one {
   width: 50px;
 }
+
+.place-ships, .computer-fleet {
+  transition: 1s;
+}
+
+.fade-out {
+  opacity: 0;
+}
