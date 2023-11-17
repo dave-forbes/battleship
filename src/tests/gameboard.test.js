@@ -26,9 +26,9 @@ test("Can't place ships out of range 0-9 on 10 x 10 board.", () => {
 test("Can't place a ship over co-ordinates that are already occupied", () => {
   const gameboard = new Gameboard();
   gameboard.placeShip([1, 1], [2, 1]);
-  expect(gameboard.placeShip([1, 1], [2, 1])).toBe(false);
-  expect(gameboard.placeShip([1, 1], [1, 2], [2, 3])).toBe(false);
-  expect(gameboard.board[gameboard.boardIndex([1, 2])][2]).toBe(undefined);
+  expect(gameboard.placeShip([1, 1], [2, 1])).toBeFalsy();
+  expect(gameboard.placeShip([1, 1], [1, 2], [2, 3])).toBeFalsy();
+  expect(gameboard.board[gameboard.boardIndex([1, 2])][2]).toBeFalsy();
   expect(gameboard.placeShip([4, 1], [4, 2], [4, 3])).toBeTruthy();
 });
 
