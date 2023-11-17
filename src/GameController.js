@@ -43,7 +43,6 @@ function GameController() {
     allMissesHuman,
     allMissesComputer,
     gameLoop,
-    humanPlayer,
     dropShip,
   };
 }
