@@ -70,6 +70,7 @@ const clickAttack = (e) => {
 computerPlayerBoardUI.addEventListener("click", clickAttack);
 
 const randomFleet = document.querySelector("#random-fleet");
+const clearFleet = document.querySelector("#clear-fleet");
 const placeShips = document.querySelector(".place-ships");
 const computerFleet = document.querySelector(".computer-fleet");
 
@@ -77,6 +78,17 @@ function startGame() {
   computerFleet.classList.toggle("hide");
   placeShips.classList.toggle("hide");
 }
+
+function clickClearFleet() {
+  humanPlayerBoardUI.innerHTML = "";
+  humanPlayer.gameboard.clearShips();
+  console.log(humanPlayer.gameboard);
+  generateDivsFromGameboard(humanPlayer.gameboard.board, humanPlayerBoardUI);
+}
+
+// clearFleet.onclick = clickClearFleet();
+
+clearFleet.addEventListener("click", clickClearFleet);
 
 randomFleet.addEventListener("click", () => {
   humanPlayerBoardUI.innerHTML = "";
@@ -111,21 +123,36 @@ humanPlayerBoardUI.addEventListener("drop", (e) => {
   const coOrds = [x, y];
   const success = dragAndDropShip(coOrds, size, vertical);
   if (success) {
-    const originalParent = originalTarget.parentElement;
-    originalParent.removeChild(originalTarget);
+    originalTarget.classList.add("hide");
     humanPlayerBoardUI.innerHTML = "";
     generateDivsFromGameboard(humanPlayerBoard, humanPlayerBoardUI);
     if (humanPlayer.gameboard.allShipsPlaced()) startGame();
   }
 });
 
-placeShipsContainer.addEventListener("click", (e) => {
+function swapWidthAndHeight(node) {
+  const width = node.clientWidth;
+  const height = node.clientHeight;
+  node.style.width = `${height}px`;
+  node.style.height = `${width}px`;
+}
+
+function clickShip(e) {
   const node = e.target;
+  const id = e.target.id;
   if (node.classList.contains("ship")) {
-    const width = node.clientWidth;
-    const height = node.clientHeight;
-    node.style.width = `${height}px`;
-    node.style.height = `${width}px`;
+    swapWidthAndHeight(node);
     node.classList.toggle("vertical");
+    const nodeList = document.querySelectorAll(".ship.vertical");
+    let otherNodes = [...nodeList];
+    otherNodes = otherNodes.filter((otherNode) => otherNode.id !== id);
+    otherNodes.forEach((otherNode) => {
+      if (otherNode.classList.contains("vertical")) {
+        swapWidthAndHeight(otherNode);
+        otherNode.classList.toggle("vertical");
+      }
+    });
   }
-});
+}
+
+placeShipsContainer.addEventListener("click", clickShip);
