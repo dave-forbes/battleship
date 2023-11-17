@@ -22,6 +22,18 @@ export default class Gameboard {
     return x * 10 + y;
   }
 
+  gerenateShipCoOrds = (coOrds, size, vertical) => {
+    if (vertical) {
+      const [x, y] = coOrds;
+      const coordinates = Array.from({ length: size }, (_, i) => [x + i, y]);
+      return coordinates;
+    } else {
+      const [x, y] = coOrds;
+      const coordinates = Array.from({ length: size }, (_, i) => [x, y + i]);
+      return coordinates;
+    }
+  };
+
   placeShip(...coOrds) {
     const coordinates = [...coOrds];
 
@@ -58,7 +70,7 @@ export default class Gameboard {
       const cell = this.board.find((cell) => cell[0] === x && cell[1] === y);
       cell.push(ship);
     }
-    return true;
+    return this.board;
   }
 
   recieveAttack(coOrds) {
