@@ -21,6 +21,17 @@ const generateDivsFromGameboard = (board, node) => {
 generateDivsFromGameboard(game.humanPlayerBoard, humanPlayerBoardUI);
 generateDivsFromGameboard(game.computerPlayerBoard, computerPlayerBoardUI);
 
+const hideXShowY = (nodeX, nodeY) => {
+  nodeX.classList.toggle("fade-out");
+  setTimeout(() => {
+    nodeX.classList.toggle("hide");
+    nodeY.classList.toggle("hide");
+  }, 500);
+  setTimeout(() => {
+    nodeY.classList.toggle("fade-out");
+  }, 750);
+};
+
 const clickAttack = (e) => {
   const x = Number(e.target.dataset.X);
   const y = Number(e.target.dataset.Y);
@@ -31,25 +42,23 @@ const clickAttack = (e) => {
   if (winner === "Human") {
     const computerFleet = document.querySelector("div.computer-fleet");
     const playerWins = document.querySelector("div.player-wins");
-    hideXShowY(computerFleet, playerWins);
-    playerWins.style.display = "grid";
     playerWins.innerHTML = `<h1>You won!</h1>
     <h3>Your hits: ${score.humanHits}</h3>
     <h3>Your misses: ${score.humanMisses}</h3>
     <h3>Your ships lost: ${score.humanShipsLost}</h3>
     <button id="play-again">Play Again?</button>`;
+    hideXShowY(computerFleet, playerWins);
     const playAgain = document.querySelector("#play-again");
     playAgain.addEventListener("click", clickClearFleet);
   } else if (winner === "Computer") {
     const playerFleet = document.querySelector("div.player-fleet");
     const computerWins = document.querySelector("div.computer-wins");
-    hideXShowY(playerFleet, computerWins);
-    computerWins.style.display = "grid";
     computerWins.innerHTML = `<h1>Computer won!</h1>
     <h3>Your hits: ${score.humanHits}</h3>
     <h3>Your misses: ${score.humanMisses}</h3>
     <h3>Computer ships sunk: ${score.humanShipsSunk}</h3>
     <button id="play-again">Play Again?</button>`;
+    hideXShowY(playerFleet, computerWins);
     const playAgain = document.querySelector("#play-again");
     playAgain.addEventListener("click", clickClearFleet);
   }
@@ -81,17 +90,6 @@ const refreshUI = () => {
       div.classList.add("hit");
     }
   });
-};
-
-const hideXShowY = (nodeX, nodeY) => {
-  nodeX.classList.toggle("fade-out");
-  setTimeout(() => {
-    nodeX.classList.toggle("hide");
-    nodeY.classList.toggle("hide");
-  }, 500);
-  setTimeout(() => {
-    nodeY.classList.toggle("fade-out");
-  }, 750);
 };
 
 const clickClearFleet = () => {
