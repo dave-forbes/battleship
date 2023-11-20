@@ -121,7 +121,7 @@ button:hover {
 }
 
 .hide {
-  display: none;
+  display: none !important; 
 }
 
 /* Draggable ships */
@@ -188,4 +188,5 @@ div.place-ships, div.computer-fleet {
   width: 500px;
   justify-items: center;
   transition: 0.5s;
+  display: grid;
 }
