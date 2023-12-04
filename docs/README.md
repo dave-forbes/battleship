@@ -21,3 +21,7 @@ Features
 - Random ship generation
 - Displays score upon win or lose.
 - Smooth transitions.
+
+# Todo
+
+- Implement responsive design so it can be played on a phone or tablet.
