@@ -10,7 +10,8 @@
     "test": "jest",
     "build": "webpack",
     "watch": "webpack --watch",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "start": "webpack serve --mode development --open"
   },
   "type": "module",
   "keywords": [],
