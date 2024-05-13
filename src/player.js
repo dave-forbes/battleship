@@ -1,15 +1,19 @@
-import Gameboard from "./gameboard.js";
+import Gameboard from './gameboard.js';
 
 export default class Player {
   constructor(computer) {
-    this.computer = computer === "computer" ? true : false;
+    this.computer = computer === 'computer' ? true : false;
     this.gameboard = new Gameboard();
   }
 
   attack(opposingPlayer, coOrds) {
     if (coOrds && !this.computer) {
-      if (!opposingPlayer.gameboard.allAttacks.has(JSON.stringify(coOrds))) {
-        opposingPlayer.gameboard.recieveAttack(coOrds);
+      if (
+        !opposingPlayer.gameboard.allAttacks.has(
+          JSON.stringify(coOrds)
+        )
+      ) {
+        opposingPlayer.gameboard.receiveAttack(coOrds);
         return true;
       } else {
         return false;
@@ -22,13 +26,17 @@ export default class Player {
         const x = Math.floor(Math.random() * 10);
         const y = Math.floor(Math.random() * 10);
         coOrds = [x, y];
-        if (opposingPlayer.gameboard.allAttacks.has(JSON.stringify(coOrds))) {
+        if (
+          opposingPlayer.gameboard.allAttacks.has(
+            JSON.stringify(coOrds)
+          )
+        ) {
           success = false;
         } else {
           success = true;
         }
       }
-      opposingPlayer.gameboard.recieveAttack(coOrds);
+      opposingPlayer.gameboard.receiveAttack(coOrds);
       return coOrds;
       //Computer Player attack
     }

@@ -1,4 +1,4 @@
-import Ship from "./ship.js";
+import Ship from './ship.js';
 
 export default class Gameboard {
   constructor() {
@@ -25,11 +25,17 @@ export default class Gameboard {
   gerenateShipCoOrds = (coOrds, size, vertical) => {
     if (vertical) {
       const [x, y] = coOrds;
-      const coordinates = Array.from({ length: size }, (_, i) => [x + i, y]);
+      const coordinates = Array.from({ length: size }, (_, i) => [
+        x + i,
+        y,
+      ]);
       return coordinates;
     } else {
       const [x, y] = coOrds;
-      const coordinates = Array.from({ length: size }, (_, i) => [x, y + i]);
+      const coordinates = Array.from({ length: size }, (_, i) => [
+        x,
+        y + i,
+      ]);
       return coordinates;
     }
   };
@@ -47,11 +53,15 @@ export default class Gameboard {
           y > 9 ||
           y < 0 ||
           (x === cellX && y === cellY && cell.length === 3) ||
-          (Math.abs(x - cellX) === 1 && y === cellY && cell.length === 3) ||
+          (Math.abs(x - cellX) === 1 &&
+            y === cellY &&
+            cell.length === 3) ||
           (Math.abs(x - cellX) === 1 &&
             Math.abs(y - cellY) === 1 &&
             cell.length === 3) ||
-          (x === cellX && Math.abs(y - cellY) === 1 && cell.length === 3)
+          (x === cellX &&
+            Math.abs(y - cellY) === 1 &&
+            cell.length === 3)
         );
       });
     };
@@ -67,24 +77,26 @@ export default class Gameboard {
     this.ships.push(ship);
 
     for (const [x, y] of coordinates) {
-      const cell = this.board.find((cell) => cell[0] === x && cell[1] === y);
+      const cell = this.board.find(
+        (cell) => cell[0] === x && cell[1] === y
+      );
       cell.push(ship);
     }
     return this.board;
   }
 
-  recieveAttack(coOrds) {
+  receiveAttack(coOrds) {
     if (this.allAttacks.has(JSON.stringify(coOrds))) return false;
     const index = this.boardIndex(coOrds);
     const cell = this.board[index];
     if (cell[2]) {
       cell[2].hit();
       this.allAttacks.add(JSON.stringify(coOrds));
-      return "Hit";
+      return 'Hit';
     } else {
       this.missedShots.add(JSON.stringify(coOrds));
       this.allAttacks.add(JSON.stringify(coOrds));
-      return "Miss";
+      return 'Miss';
     }
   }
   allShipsSunk() {
